@@ -41,3 +41,12 @@ Troque tudo o que conter o nome da sua isntância primária para a secundária e
 
 ### [Link para verificar como ficou o meu script, após as alterações mencionadas acima.](https://github.com/CloretoJannuzzi/Failover-LogShipping/blob/main/failover.sql)
 
+Delete os jobs de backup, copy e restore, o de alerta não é necessário.
+
+Segue abaixo um script para deletar um job de LogShipping, onde você só tera que escrever nome do servidor ou da base:
+
+    
+    DECLARE @id_job VARCHAR(80)
+    SELECT @id_job = job_id FROM msdb..sysjobs WHERE name LIKE 'LS%AdventureWorks2017%'
+
+    EXEC msdb.dbo.sp_delete_job @job_id = @id_job, @delete_unused_schedule = 1
