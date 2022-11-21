@@ -41,7 +41,7 @@ Troque tudo o que conter o nome da sua isntância primária para a secundária e
 
 ### [Link para verificar como ficou o meu script, após as alterações mencionadas acima.](https://github.com/CloretoJannuzzi/Failover-LogShipping/blob/main/failover.sql)
 
-Delete os jobs de backup, copy e restore, o de alerta não é necessário.
+Delete os jobs de backup, copy e restore, o de alerta não é necessário, apenas desative eles.
 
 Segue abaixo um script para deletar um job de LogShipping, onde você só tera que escrever nome do servidor ou da base:
 
@@ -50,3 +50,28 @@ Segue abaixo um script para deletar um job de LogShipping, onde você só tera q
     SELECT @id_job = job_id FROM msdb..sysjobs WHERE name LIKE 'LS%AdventureWorks2017%'
 
     EXEC msdb.dbo.sp_delete_job @job_id = @id_job, @delete_unused_schedule = 1
+
+## Início do Failover
+
+Tudo pronto, agora vamos iniciar o processo para fazer o Failover.
+
+Vamos fazer um backup manualmenete de LOG na base primária e colocá-la em restoring:
+
+    BACKUP LOG AdventureWorks2017 TO DISK '\\DSNB90\AdventureWorks2017\Backups\Backup_log_tail.trn'
+    WITH NORECOVERY;
+
+No caminho, você especifica a  paste onde irá colocar os backups e o nome dele com o final ".trn"
+
+Após rodar o script você ficará com a sua base no modo restoring:
+
+![image](https://user-images.githubusercontent.com/100159466/203086252-0aec9e25-5466-4189-a03f-a89efe1cf5fa.png)
+
+Rode este script na MSDB de restore para colocar a base secundária on-line:
+
+    RESTORE LOG AdventureWorks2017 FROM DISK = '\\DSNB90\AdventureWorks2017\Backups\Backup_log_tail.trn'
+    WITH RECOVERY;
+
+Como ficará:
+
+![image](https://user-images.githubusercontent.com/100159466/203088187-d103c243-cbb5-41ab-b048-9558b091f512.png)
+
