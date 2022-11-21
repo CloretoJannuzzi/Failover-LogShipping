@@ -39,5 +39,5 @@ Troque tudo o que conter o nome da sua isntância primária para a secundária e
 
 ![image](https://user-images.githubusercontent.com/100159466/203077831-b8deb419-42a7-4430-8b59-648d0f3b089e.png)
 
-Link para verificar como ficou o meu script, após as alterações mencionadas acima.
+### [Link para verificar como ficou o meu script, após as alterações mencionadas acima.](https://github.com/CloretoJannuzzi/Failover-LogShipping/blob/main/failover.sql)
 
