@@ -75,3 +75,16 @@ Como ficará:
 
 ![image](https://user-images.githubusercontent.com/100159466/203088187-d103c243-cbb5-41ab-b048-9558b091f512.png)
 
+Após isso vamos para aquele script que configuramos antes:
+
+Ele possui duas etapas, uma para ser executada no servidor que será o primário e a outra parte no secundário.
+
+### Antes de Executar o código, verifique os diretórios, para verificar se está no caminho correto.
+
+Roda a primeira parte no novo servidor primário:
+
+![image](https://user-images.githubusercontent.com/100159466/203089454-25c4436a-31f1-40d3-af70-21d944aa7311.png)
+
+Espere a sua conclusão e depois roda a outra parte no novo servidor secundário.
+
+E pronto o Failover já está finalizado, rode o job de backup, copy e restore. Sua base deverá sair de Restoring para Stand by.
